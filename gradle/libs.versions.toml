@@ -1,8 +1,6 @@
 [versions]
 
-kotlin = "1.9.21"
 agp = "8.2.0"
-compose = "1.6.0-dev1347"
 androidx-appcompat = "1.6.1"
 androidx-activityCompose = "1.8.2"
 compose-uitooling = "1.5.4"
@@ -16,7 +14,4 @@ compose-uitooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "
 materialKolor = { module = "com.materialkolor:material-kolor", version.ref = "materialKolor" }
 
 [plugins]
-
-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
-compose = { id = "org.jetbrains.compose", version.ref = "compose" }
 android-application = { id = "com.android.application", version.ref = "agp" }

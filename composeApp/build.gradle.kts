@@ -1,12 +1,26 @@
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 
 plugins {
-    alias(libs.plugins.multiplatform)
-    alias(libs.plugins.compose)
+    kotlin("multiplatform")
+    id("org.jetbrains.compose")
     alias(libs.plugins.android.application)
 }
 
 kotlin {
+    @Suppress("INVISIBLE_MEMBER", "INVISIBLE_REFERENCE", "OPT_IN_USAGE")
+    compilerOptions {
+        languageVersion.set(
+            org.jetbrains.kotlin.gradle.dsl.KotlinVersion.fromVersion(
+                version = getOverriddenKotlinLanguageVersion(project) ?: "2.0"
+            )
+        )
+        apiVersion.set(
+            org.jetbrains.kotlin.gradle.dsl.KotlinVersion.fromVersion(
+                version = getOverriddenKotlinApiVersion(project) ?: "2.0"
+            )
+        )
+    }
+
     androidTarget {
         compilations.all {
             kotlinOptions {
@@ -123,4 +137,20 @@ compose.desktop {
 
 compose.experimental {
     web.application {}
+}
+
+fun getOverriddenKotlinLanguageVersion(project: Project): String? {
+    val languageVersion = project.rootProject.properties["kotlin_language_version"] as? String
+    if (languageVersion != null) {
+        project.logger.info("""[COMMUNITY_PROJECT_BUILD] Configured Kotlin Language version: '$languageVersion' for project ${project.name}""")
+    }
+    return languageVersion
+}
+
+fun getOverriddenKotlinApiVersion(project: Project): String? {
+    val apiVersion = project.rootProject.properties["kotlin_api_version"] as? String
+    if (apiVersion != null) {
+        project.logger.info("""[COMMUNITY_PROJECT_BUILD] Configured Kotlin API version: '$apiVersion' for project $${project.name}""")
+    }
+    return apiVersion
 }
