@@ -148,3 +148,11 @@ fun getOverriddenKotlinApiVersion(project: Project): String? {
     }
     return apiVersion
 }
+
+// Just a quicker way to force CI build k/wasm target too (which triggers just jsBrowserWebpack):
+// https://jetbrains.team/p/kti/repositories/kotlin-teamcity-build/files/.teamcity/userprojects/external/ComposeMaterial3GalleryK2.kt
+tasks.getByName("jsBrowserWebpack").dependsOn("jsBrowserDistribution")
+tasks.getByName("jsBrowserDistribution").dependsOn("wasmJsBrowserDistribution")
+
+// A workaround for https://youtrack.jetbrains.com/issue/KT-71675:
+// tasks.findByName("checkSandboxAndWriteProtection")?.dependsOn("syncComposeResourcesForIos")
