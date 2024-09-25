@@ -153,6 +153,3 @@ fun getOverriddenKotlinApiVersion(project: Project): String? {
 // https://jetbrains.team/p/kti/repositories/kotlin-teamcity-build/files/.teamcity/userprojects/external/ComposeMaterial3GalleryK2.kt
 tasks.getByName("jsBrowserWebpack").dependsOn("jsBrowserDistribution")
 tasks.getByName("jsBrowserDistribution").dependsOn("wasmJsBrowserDistribution")
-
-// A workaround for https://youtrack.jetbrains.com/issue/KT-71675:
-tasks.findByName("checkSandboxAndWriteProtection")?.dependsOn("syncComposeResourcesForIos")
