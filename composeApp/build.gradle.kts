@@ -155,4 +155,4 @@ tasks.getByName("jsBrowserWebpack").dependsOn("jsBrowserDistribution")
 tasks.getByName("jsBrowserDistribution").dependsOn("wasmJsBrowserDistribution")
 
 // A workaround for https://youtrack.jetbrains.com/issue/KT-71675:
-// tasks.findByName("checkSandboxAndWriteProtection")?.dependsOn("syncComposeResourcesForIos")
+tasks.findByName("checkSandboxAndWriteProtection")?.dependsOn("syncComposeResourcesForIos")
