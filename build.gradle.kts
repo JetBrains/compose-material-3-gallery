@@ -1,9 +1,3 @@
-import org.jetbrains.compose.ComposeExtension
-import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension
-import org.jetbrains.kotlin.gradle.targets.wasm.nodejs.WasmNodeJsRootExtension
-import org.jetbrains.kotlin.gradle.targets.web.nodejs.BaseNodeJsRootExtension
-import kotlin.collections.plusAssign
-
 plugins {
     kotlin("android") apply false
     kotlin("multiplatform") apply false
@@ -30,24 +24,5 @@ allprojects {
         kotlin_repo_url?.also { maven(it) }
         composeCompilerCustomRepo?.also { maven(it) }
         maven("https://maven.pkg.jetbrains.space/kotlin/p/kotlin/dev")
-    }
-}
-
-fun configureNpmInstall(extension: BaseNodeJsRootExtension) {
-    extension.npmInstallTaskProvider.configure {
-        println(name + "HELLO")
-        args += listOf("--network-concurrency", "1", "--mutex", "network")
-    }
-}
-
-plugins.withType(org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootPlugin::class) {
-    extensions.configure(NodeJsRootExtension::class.java) {
-        configureNpmInstall(this)
-    }
-}
-
-plugins.withType(org.jetbrains.kotlin.gradle.targets.wasm.nodejs.WasmNodeJsRootPlugin::class) {
-    extensions.configure(WasmNodeJsRootExtension::class.java) {
-        configureNpmInstall(this)
     }
 }

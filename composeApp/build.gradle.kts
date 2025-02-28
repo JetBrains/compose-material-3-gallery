@@ -1,4 +1,8 @@
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
+import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension
+import org.jetbrains.kotlin.gradle.targets.js.npm.tasks.KotlinNpmInstallTask
+import kotlin.collections.plusAssign
+import kotlin.jvm.java
 
 plugins {
     kotlin("multiplatform")
@@ -130,6 +134,12 @@ compose.desktop {
 compose.experimental {
     web.application {}
 }
+
+fun configureNpmInstall(task: KotlinNpmInstallTask) {
+    task.args += listOf("--network-concurrency", "1", "--mutex", "network")
+}
+
+rootProject.tasks.withType(KotlinNpmInstallTask::class.java).configureEach(::configureNpmInstall)
 
 fun getOverriddenKotlinLanguageVersion(project: Project): String? {
     val languageVersion = project.rootProject.properties["community.project.kotlin.languageVersion"] as? String
