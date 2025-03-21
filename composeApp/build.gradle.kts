@@ -26,13 +26,7 @@ kotlin {
         )
     }
 
-    androidTarget {
-        compilations.all {
-            kotlinOptions {
-                jvmTarget = "17"
-            }
-        }
-    }
+    androidTarget ()
 
     jvm()
 
@@ -131,9 +125,7 @@ compose.desktop {
     }
 }
 
-compose.experimental {
-    web.application {}
-}
+
 
 fun configureNpmInstall(task: KotlinNpmInstallTask) {
     task.args += listOf("--network-concurrency", "1", "--mutex", "network")
