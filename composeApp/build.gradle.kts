@@ -1,6 +1,8 @@
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
+import org.jetbrains.kotlin.gradle.dsl.KotlinVersion.Companion.fromVersion
 import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension
 import org.jetbrains.kotlin.gradle.targets.js.npm.tasks.KotlinNpmInstallTask
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import kotlin.collections.plusAssign
 import kotlin.jvm.java
 
@@ -12,17 +14,10 @@ plugins {
 }
 
 kotlin {
-    @Suppress("INVISIBLE_MEMBER", "INVISIBLE_REFERENCE", "OPT_IN_USAGE")
     compilerOptions {
-        languageVersion.set(
-            org.jetbrains.kotlin.gradle.dsl.KotlinVersion.fromVersion(
-                version = getOverriddenKotlinLanguageVersion(project) ?: "2.0"
-            )
+        languageVersion.set(fromVersion(getOverriddenKotlinLanguageVersion(project) ?: "2.2")
         )
-        apiVersion.set(
-            org.jetbrains.kotlin.gradle.dsl.KotlinVersion.fromVersion(
-                version = getOverriddenKotlinApiVersion(project) ?: "2.0"
-            )
+        apiVersion.set(fromVersion(getOverriddenKotlinApiVersion(project) ?: "2.2")
         )
     }
 
@@ -108,9 +103,6 @@ android {
     buildFeatures {
         compose = true
     }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.10"
-    }
 }
 
 compose.desktop {
@@ -139,6 +131,7 @@ fun getOverriddenKotlinLanguageVersion(project: Project): String? {
     if (languageVersion != null) {
         project.logger.info("""[COMMUNITY_PROJECT_BUILD] Configured Kotlin Language version: '$languageVersion' for project ${project.name}""")
     }
+    println("language version = $languageVersion")
     return languageVersion
 }
 
@@ -148,5 +141,6 @@ fun getOverriddenKotlinApiVersion(project: Project): String? {
     if (apiVersion != null) {
         project.logger.info("""[COMMUNITY_PROJECT_BUILD] Configured Kotlin API version: '$apiVersion' for project $${project.name}""")
     }
+    println("api version = $apiVersion")
     return apiVersion
 }
