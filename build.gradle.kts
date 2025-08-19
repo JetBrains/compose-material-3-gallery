@@ -27,6 +27,7 @@ allprojects {
         maven("https://androidx.dev/storage/compose-compiler/repository/")
         kotlin_repo_url?.also { maven(it) }
         composeCompilerCustomRepo?.also { maven(it) }
-        maven("https://maven.pkg.jetbrains.space/kotlin/p/kotlin/dev")
+//        maven("https://maven.pkg.jetbrains.space/kotlin/p/kotlin/dev")
+        maven("https://packages.jetbrains.team/maven/p/kt/dev/")
     }
 }

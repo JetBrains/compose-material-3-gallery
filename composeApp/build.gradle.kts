@@ -68,13 +68,6 @@ kotlin {
             }
         }
     }
-
-    compilerOptions {
-        freeCompilerArgs.addAll(
-            "-language-version=${getOverriddenKotlinLanguageVersion(project)}",
-            "-api-version=${getOverriddenKotlinApiVersion(project)}"
-        )
-    }
 }
 
 android {
@@ -122,22 +115,29 @@ fun configureNpmInstall(task: KotlinNpmInstallTask) {
 
 rootProject.tasks.withType(KotlinNpmInstallTask::class.java).configureEach(::configureNpmInstall)
 
-fun getOverriddenKotlinLanguageVersion(project: Project): String? {
+fun getOverriddenKotlinLanguageVersion(project: Project): KotlinVersion? {
     val languageVersion = project.rootProject.properties["community.project.kotlin.languageVersion"] as? String
         ?: project.rootProject.properties["kotlin_language_version"] as? String
-    if (languageVersion != null) {
+    return languageVersion?.let {
         project.logger.info("""[COMMUNITY_PROJECT_BUILD] Configured Kotlin Language version: '$languageVersion' for project ${project.name}""")
+        println("language version = $languageVersion")
+        KotlinVersion.fromVersion(languageVersion)
     }
-    println("language version = $languageVersion")
-    return languageVersion
 }
 
-fun getOverriddenKotlinApiVersion(project: Project): String? {
+fun getOverriddenKotlinApiVersion(project: Project): KotlinVersion? {
     val apiVersion = project.rootProject.properties["community.project.kotlin.apiVersion"] as? String
         ?: project.rootProject.properties["kotlin_api_version"] as? String
-    if (apiVersion != null) {
+    return apiVersion?.let {
         project.logger.info("""[COMMUNITY_PROJECT_BUILD] Configured Kotlin API version: '$apiVersion' for project $${project.name}""")
+        println("api version = $apiVersion")
+        KotlinVersion.fromVersion(apiVersion)
     }
-    println("api version = $apiVersion")
-    return apiVersion
+}
+
+tasks.withType<KotlinCompile>().configureEach {
+    compilerOptions {
+        apiVersion.set(getOverriddenKotlinApiVersion(project) ?: KotlinVersion.KOTLIN_2_2)
+        languageVersion.set(getOverriddenKotlinLanguageVersion(project) ?: KotlinVersion.KOTLIN_2_2)
+    }
 }
