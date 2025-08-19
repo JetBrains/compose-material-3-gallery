@@ -1,10 +1,7 @@
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
-import org.jetbrains.kotlin.gradle.dsl.KotlinVersion.Companion.fromVersion
-import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension
+import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
 import org.jetbrains.kotlin.gradle.targets.js.npm.tasks.KotlinNpmInstallTask
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import kotlin.collections.plusAssign
-import kotlin.jvm.java
 
 plugins {
     kotlin("multiplatform")
@@ -14,13 +11,6 @@ plugins {
 }
 
 kotlin {
-    compilerOptions {
-        languageVersion.set(fromVersion(getOverriddenKotlinLanguageVersion(project) ?: "2.2")
-        )
-        apiVersion.set(fromVersion(getOverriddenKotlinApiVersion(project) ?: "2.2")
-        )
-    }
-
     androidTarget ()
 
     jvm()
@@ -78,11 +68,18 @@ kotlin {
             }
         }
     }
+
+    compilerOptions {
+        freeCompilerArgs.addAll(
+            "-language-version=${getOverriddenKotlinLanguageVersion(project)}",
+            "-api-version=${getOverriddenKotlinApiVersion(project)}"
+        )
+    }
 }
 
 android {
     namespace = "com.github.terrakok"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         minSdk = 24
