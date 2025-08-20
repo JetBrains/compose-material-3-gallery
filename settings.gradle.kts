@@ -7,18 +7,22 @@ pluginManagement {
     @Suppress("LocalVariableName")
     val kotlin_repo_url: String? by settings
 
+    val kotlinVersionDot = providers.gradleProperty("kotlin.version").orNull
+    val kotlinRepoDot = providers.gradleProperty("kotlin.repo").orNull
+
     repositories {
         google()
         gradlePluginPortal()
         mavenCentral()
         maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
-        kotlin_repo_url?.also { maven(it) }
+        (kotlinRepoDot ?: kotlin_repo_url)?.takeIf { it.isNotBlank() }?.let { maven(it) }
         maven("https://maven.pkg.jetbrains.space/kotlin/p/kotlin/dev")
     }
 
     plugins {
-        println("kotlin_version = $kotlin_version")
-        val kotlinVersion = extra.properties["community.project.kotlin.version"] as? String
+        println("kotlin_version (underscore) = $kotlin_version")
+        println("kotlin.version (dot) = $kotlinVersionDot")
+        val kotlinVersion = kotlinVersionDot
             ?: kotlin_version
             ?: "1.9.21"
         println("Final kotlin version = $kotlinVersion")
@@ -40,12 +44,14 @@ dependencyResolutionManagement {
     val composeCompilerCustomRepo =
         extra.properties["compose.compiler.customRepositoryUrl"] as? String
 
+    val kotlinRepoDot = providers.gradleProperty("kotlin.repo").orNull
+
     repositories {
         google()
         mavenCentral()
         maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
-        kotlin_repo_url?.also { maven(it) }
-        composeCompilerCustomRepo?.also { maven(it) }
+        (kotlinRepoDot ?: kotlin_repo_url)?.takeIf { it.isNotBlank() }?.let { maven(it) }
+        composeCompilerCustomRepo?.takeIf { it.isNotBlank() }?.let { maven(it) }
         maven("https://maven.pkg.jetbrains.space/kotlin/p/kotlin/dev")
     }
 }

@@ -116,7 +116,7 @@ fun configureNpmInstall(task: KotlinNpmInstallTask) {
 rootProject.tasks.withType(KotlinNpmInstallTask::class.java).configureEach(::configureNpmInstall)
 
 fun getOverriddenKotlinLanguageVersion(project: Project): KotlinVersion? {
-    val languageVersion = project.rootProject.properties["community.project.kotlin.languageVersion"] as? String
+    val languageVersion = project.rootProject.properties["kotlin.languageVersion"] as? String
         ?: project.rootProject.properties["kotlin_language_version"] as? String
     return languageVersion?.let {
         project.logger.info("""[COMMUNITY_PROJECT_BUILD] Configured Kotlin Language version: '$languageVersion' for project ${project.name}""")
@@ -126,7 +126,7 @@ fun getOverriddenKotlinLanguageVersion(project: Project): KotlinVersion? {
 }
 
 fun getOverriddenKotlinApiVersion(project: Project): KotlinVersion? {
-    val apiVersion = project.rootProject.properties["community.project.kotlin.apiVersion"] as? String
+    val apiVersion = project.rootProject.properties["kotlin.apiVersion"] as? String
         ?: project.rootProject.properties["kotlin_api_version"] as? String
     return apiVersion?.let {
         project.logger.info("""[COMMUNITY_PROJECT_BUILD] Configured Kotlin API version: '$apiVersion' for project $${project.name}""")

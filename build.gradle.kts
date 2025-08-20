@@ -1,7 +1,3 @@
-import org.gradle.kotlin.dsl.withType
-import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 plugins {
     kotlin("android") apply false
     kotlin("multiplatform") apply false
@@ -17,6 +13,8 @@ allprojects {
     @Suppress("LocalVariableName")
     val kotlin_repo_url: String? = extra.properties["kotlin_repo_url"] as? String
 
+    val kotlinRepoDot: String? = providers.gradleProperty("kotlin.repo").orNull
+
     val composeCompilerCustomRepo =
         extra.properties["compose.compiler.customRepositoryUrl"] as? String
 
@@ -25,8 +23,8 @@ allprojects {
         mavenCentral()
         maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
         maven("https://androidx.dev/storage/compose-compiler/repository/")
-        kotlin_repo_url?.also { maven(it) }
-        composeCompilerCustomRepo?.also { maven(it) }
+        (kotlinRepoDot ?: kotlin_repo_url)?.takeIf { it.isNotBlank() }?.let { maven(it) }
+        composeCompilerCustomRepo?.takeIf { it.isNotBlank() }?.let { maven(it) }
 //        maven("https://maven.pkg.jetbrains.space/kotlin/p/kotlin/dev")
         maven("https://packages.jetbrains.team/maven/p/kt/dev/")
     }

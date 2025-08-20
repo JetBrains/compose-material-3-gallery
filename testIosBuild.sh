@@ -2,35 +2,30 @@
 
 args_string=""
 
+has_kotlin_native_version=false
+kotlin_version_value=""
+
 # Loop through the arguments
 for arg in "$@"
 do
-    # Append the argument and a comma
-    args_string+="${arg},"
-
-    # We need to add `-Pkotlin.native.version=...` to the arguments
-    # Check if the current argument matches the pattern -Pcommunity.project.kotlin.version=*
     case "$arg" in
-        -Pcommunity.project.kotlin.version=*)
-            # Extract the value part after the '=' sign
-            kotlin_version="${arg#-Pcommunity.project.kotlin.version=}"
-
-            # Construct the new parameter with the extracted value
-            new_param="-Pkotlin.native.version=${kotlin_version}"
-
-            # Append the new parameter followed by a comma to args_string
-            args_string+="${new_param},"
+        -Pkotlin.native.version=*)
+            has_kotlin_native_version=true
             ;;
-        *)
-            # For all other arguments, do nothing extra
+        -Pkotlin.version=*)
+            kotlin_version_value="${arg#-Pkotlin.version=}"
             ;;
     esac
+
+    args_string+="${arg},"
 done
 
+if [ "$has_kotlin_native_version" = false ] && [ -n "$kotlin_version_value" ]; then
+    args_string+="-Pkotlin.native.version=${kotlin_version_value},"
+fi
 
 # Remove the trailing comma
 args_string=${args_string%,}
-
 
 export CUSTOM_PARAMS="$args_string"
 echo "CUSTOM_PARAMS=${CUSTOM_PARAMS}"
