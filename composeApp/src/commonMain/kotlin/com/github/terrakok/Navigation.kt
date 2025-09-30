@@ -12,6 +12,9 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
 
@@ -162,6 +165,9 @@ private fun GalleryNavigationDrawer() {
             val drawerState = LocalDrawerState.current
             val coroutineScope = rememberCoroutineScope()
             TextButton(
+                modifier = Modifier
+                    .semantics { contentDescription = "Show modal navigation drawer" }
+                    .testTag("btn_show_modal_drawer"),
                 onClick = {
                     coroutineScope.launch {
                         if (drawerState.isClosed) {

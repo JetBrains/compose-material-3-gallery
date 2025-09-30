@@ -15,6 +15,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
@@ -95,7 +98,9 @@ private fun DialogsDemo() {
             TextButton(
                 modifier = Modifier
                     .padding(horizontal = 8.dp, vertical = 4.dp)
-                    .weight(1f),
+                    .weight(1f)
+                    .semantics { contentDescription = "Show dialog" }
+                    .testTag("btn_show_dialog"),
                 enabled = true,
                 onClick = { openAlertDialog.value = true },
                 content = { Text("Show dialog") }
@@ -122,6 +127,9 @@ private fun DialogsDemo() {
                 Text(text = "A dialog is a type of modal window that appears in front of app content to provide critical information, or prompt for a decision to be made.")
             },
             onDismissRequest = { openAlertDialog.value = false },
+            modifier = Modifier
+                .semantics { contentDescription = "What is the dialog? modal window" }
+                .testTag("dialog_what_is_the_dialog"),
             confirmButton = {
                 TextButton(
                     onClick = { openAlertDialog.value = false }
@@ -131,6 +139,9 @@ private fun DialogsDemo() {
             },
             dismissButton = {
                 TextButton(
+                    modifier = Modifier
+                        .semantics { contentDescription = "Dismiss" }
+                        .testTag("btn_dismiss_dialog"),
                     onClick = { openAlertDialog.value = false }
                 ) {
                     Text("Dismiss")
