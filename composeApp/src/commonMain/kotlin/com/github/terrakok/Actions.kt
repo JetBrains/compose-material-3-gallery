@@ -29,6 +29,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -68,9 +69,11 @@ fun CommonButtons() {
                 ElevatedButton(
                     modifier = Modifier
                         .padding(horizontal = 8.dp, vertical = 4.dp)
-                        .weight(1f),
+                        .weight(1f)
+                        .testTag("sample_elevated_button_1"),
                     onClick = {},
-                    content = { Text("Elevated") }
+                    content = { Text("Elevated") },
+
                 )
                 ElevatedButton(
                     modifier = Modifier
