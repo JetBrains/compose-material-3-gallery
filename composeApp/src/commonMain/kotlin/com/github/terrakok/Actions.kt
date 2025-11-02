@@ -162,7 +162,8 @@ fun CommonButtons() {
                 OutlinedButton(
                     modifier = Modifier
                         .padding(horizontal = 8.dp, vertical = 4.dp)
-                        .weight(1f),
+                        .weight(1f)
+                        .testTag("outlined_button_1"),
                     onClick = {},
                     content = {
                         Icon(Icons.Default.Add, contentDescription = null)
