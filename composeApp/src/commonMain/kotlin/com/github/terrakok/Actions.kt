@@ -231,7 +231,7 @@ fun FloatingActionButtons() {
             }
             ExtendedFloatingActionButton(
                 modifier = Modifier.padding(8.dp).testTag("create_button_1"),
-                onClick = { println("Button clicked: Create") },
+                onClick = { },
                 icon = { Icon(Icons.Default.Add, contentDescription = null) },
                 text = { Text("Create") }
             )
