@@ -24,7 +24,7 @@ pluginManagement {
         println("kotlin.version (dot) = $kotlinVersionDot")
         val kotlinVersion = kotlinVersionDot
             ?: kotlin_version
-            ?: "1.9.21"
+            ?: "2.2.21"
         println("Final kotlin version = $kotlinVersion")
         val composeVersion = extra["composeMpp.version"] as String
         println("compose_version = $composeVersion")
