@@ -1,7 +1,7 @@
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
 import org.jetbrains.kotlin.gradle.targets.js.npm.tasks.KotlinNpmInstallTask
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 
 plugins {
     kotlin("multiplatform")
@@ -115,29 +115,53 @@ fun configureNpmInstall(task: KotlinNpmInstallTask) {
 
 rootProject.tasks.withType(KotlinNpmInstallTask::class.java).configureEach(::configureNpmInstall)
 
-fun getOverriddenKotlinLanguageVersion(project: Project): KotlinVersion? {
-    val languageVersion = project.rootProject.properties["kotlin.languageVersion"] as? String
-        ?: project.rootProject.properties["kotlin_language_version"] as? String
-    return languageVersion?.let {
+fun getOverriddenKotlinLanguageVersion(project: Project): String? {
+    val languageVersion = (project.rootProject.properties["kotlin_language_version"]
+        ?: project.rootProject.properties["kotlin.language.version"]
+        ?: project.rootProject.properties["kotlin.languageVersion"]) as? String
+    if (languageVersion != null) {
         project.logger.info("""[COMMUNITY_PROJECT_BUILD] Configured Kotlin Language version: '$languageVersion' for project ${project.name}""")
-        println("language version = $languageVersion")
-        KotlinVersion.fromVersion(languageVersion)
     }
+    return languageVersion
 }
 
-fun getOverriddenKotlinApiVersion(project: Project): KotlinVersion? {
-    val apiVersion = project.rootProject.properties["kotlin.apiVersion"] as? String
-        ?: project.rootProject.properties["kotlin_api_version"] as? String
-    return apiVersion?.let {
-        project.logger.info("""[COMMUNITY_PROJECT_BUILD] Configured Kotlin API version: '$apiVersion' for project $${project.name}""")
-        println("api version = $apiVersion")
-        KotlinVersion.fromVersion(apiVersion)
+fun getOverriddenKotlinApiVersion(project: Project): String? {
+    val apiVersion = (project.rootProject.properties["kotlin_api_version"]
+        ?: project.rootProject.properties["kotlin.api.version"]
+        ?: project.rootProject.properties["kotlin.apiVersion"]) as? String
+    if (apiVersion != null) {
+        project.logger.info("""[COMMUNITY_PROJECT_BUILD] Configured Kotlin API version: '$apiVersion' for project ${project.name}""")
     }
+    return apiVersion
 }
 
-tasks.withType<KotlinCompile>().configureEach {
+val kotlinAdditionalCliOptions = providers.gradleProperty("kotlin_additional_cli_options")
+    .map { if (it.isNotBlank()) it.split(" ") else emptyList() }
+    .orNull
+
+tasks.withType<KotlinCompilationTask<*>>().configureEach kotlinCompilationTask@{
+    @Suppress("INVISIBLE_MEMBER", "INVISIBLE_REFERENCE", "OPT_IN_USAGE")
     compilerOptions {
-        apiVersion.set(getOverriddenKotlinApiVersion(project) ?: KotlinVersion.KOTLIN_2_2)
-        languageVersion.set(getOverriddenKotlinLanguageVersion(project) ?: KotlinVersion.KOTLIN_2_2)
+        getOverriddenKotlinLanguageVersion(project)?.let {
+            languageVersion.set(KotlinVersion.fromVersion(it))
+        }
+        getOverriddenKotlinApiVersion(project)?.let {
+            apiVersion.set(KotlinVersion.fromVersion(it))
+        }
+        
+        freeCompilerArgs.addAll(
+            "-Xreport-all-warnings",
+            "-Xrender-internal-diagnostic-names"
+        )
+        
+        if (kotlinAdditionalCliOptions != null) {
+            freeCompilerArgs.addAll(kotlinAdditionalCliOptions)
+            logger.info("[COMMUNITY_PROJECT_BUILD] ${this@kotlinCompilationTask.path}: added ${kotlinAdditionalCliOptions.joinToString(" ")}")
+        }
+        
+        allWarningsAsErrors.set(false)
+        freeCompilerArgs.set(freeCompilerArgs.getOrElse(emptyList()).filterNot { it == "-Werror" })
+        
+        logger.info("[COMMUNITY_PROJECT_BUILD] ${this@kotlinCompilationTask.path}: disabled -Werror")
     }
 }
