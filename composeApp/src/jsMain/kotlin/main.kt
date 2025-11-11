@@ -1,13 +1,11 @@
 import androidx.compose.ui.ExperimentalComposeUiApi
-import androidx.compose.ui.window.CanvasBasedWindow
+import androidx.compose.ui.window.ComposeViewport
 import com.github.terrakok.App
-import org.jetbrains.skiko.wasm.onWasmReady
+import kotlinx.browser.document
 
 @OptIn(ExperimentalComposeUiApi::class)
 fun main() {
-    onWasmReady {
-        CanvasBasedWindow("Material 3 gallery") {
-            App()
-        }
+    ComposeViewport(document.body!!) {
+        App()
     }
 }

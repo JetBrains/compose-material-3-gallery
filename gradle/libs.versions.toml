@@ -2,7 +2,7 @@
 
 agp = "8.8.0"
 androidx-activityCompose = "1.9.3"
-materialKolor = "1.4.4"
+materialKolor = "2.1.1"
 
 [libraries]
 
