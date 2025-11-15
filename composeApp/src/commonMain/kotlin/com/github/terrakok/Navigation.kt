@@ -237,6 +237,7 @@ fun NavigationDrawerContent() {
         HorizontalDivider(Modifier.padding(8.dp))
         Text("Labels", modifier = Modifier.padding(16.dp))
         NavigationDrawerItem(
+            modifier = Modifier.testTag("family_tag"),
             selected = selected == 4,
             onClick = { selected = 4 },
             icon = {
