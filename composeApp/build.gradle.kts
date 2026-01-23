@@ -11,7 +11,7 @@ plugins {
 }
 
 kotlin {
-    androidTarget ()
+    androidTarget()
 
     jvm()
 
@@ -26,7 +26,6 @@ kotlin {
     }
 
     listOf(
-        iosX64(),
         iosArm64(),
         iosSimulatorArm64()
     ).forEach {
@@ -40,11 +39,13 @@ kotlin {
         commonMain {
             dependencies {
                 implementation(compose.runtime)
+                implementation(compose.ui)
                 implementation(compose.material3)
                 implementation(compose.materialIconsExtended)
                 implementation(compose.components.resources)
                 implementation(compose.components.uiToolingPreview)
                 implementation(libs.materialKolor)
+                implementation(libs.kotlinx.coroutines)
             }
         }
 
