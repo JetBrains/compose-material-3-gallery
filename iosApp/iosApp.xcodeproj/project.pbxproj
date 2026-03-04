@@ -310,6 +310,13 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"${inherited}",
+					"-framework",
+					ComposeApp,
+					"-weak_framework",
+					UIKit,
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.github.terrakok.iosApp;
 				PRODUCT_NAME = "Material 3 gallery";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -339,6 +346,13 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"${inherited}",
+					"-framework",
+					ComposeApp,
+					"-weak_framework",
+					UIKit,
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.github.terrakok.iosApp;
 				PRODUCT_NAME = "Material 3 gallery";
 				SWIFT_EMIT_LOC_STRINGS = YES;
