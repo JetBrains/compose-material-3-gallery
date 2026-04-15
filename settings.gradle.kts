@@ -15,7 +15,6 @@ pluginManagement {
         gradlePluginPortal()
         mavenCentral()
         maven("https://packages.jetbrains.team/maven/p/cmp/dev")
-        maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
         (kotlinRepoDot ?: kotlin_repo_url)?.takeIf { it.isNotBlank() }?.let { maven(it) }
         maven("https://packages.jetbrains.team/maven/p/kt/dev")
     }
