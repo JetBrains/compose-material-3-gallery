@@ -14,9 +14,10 @@ pluginManagement {
         google()
         gradlePluginPortal()
         mavenCentral()
+        maven("https://packages.jetbrains.team/maven/p/cmp/dev")
         maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
         (kotlinRepoDot ?: kotlin_repo_url)?.takeIf { it.isNotBlank() }?.let { maven(it) }
-        maven("https://maven.pkg.jetbrains.space/kotlin/p/kotlin/dev")
+        maven("https://packages.jetbrains.team/maven/p/kt/dev")
     }
 
     plugins {
@@ -24,7 +25,7 @@ pluginManagement {
         println("kotlin.version (dot) = $kotlinVersionDot")
         val kotlinVersion = kotlinVersionDot
             ?: kotlin_version
-            ?: "2.2.21"
+            ?: "2.3.20"
         println("Final kotlin version = $kotlinVersion")
         val composeVersion = extra["composeMpp.version"] as String
         println("compose_version = $composeVersion")
@@ -49,9 +50,9 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-        maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
+        maven("https://packages.jetbrains.team/maven/p/cmp/dev")
+        maven("https://packages.jetbrains.team/maven/p/kt/dev")
         (kotlinRepoDot ?: kotlin_repo_url)?.takeIf { it.isNotBlank() }?.let { maven(it) }
         composeCompilerCustomRepo?.takeIf { it.isNotBlank() }?.let { maven(it) }
-        maven("https://maven.pkg.jetbrains.space/kotlin/p/kotlin/dev")
     }
 }
