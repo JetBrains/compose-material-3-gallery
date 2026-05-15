@@ -83,7 +83,7 @@ val screens = listOf(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun App() = AppTheme {
+fun App() = AppTheme {
     var screenWidth by remember { mutableStateOf(0) }
 
     val snackbarHostState = remember { SnackbarHostState() }

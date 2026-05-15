@@ -1,5 +1,6 @@
 rootProject.name = "Material-3-gallery"
-include(":composeApp")
+include(":shared")
+include(":androidApp")
 
 pluginManagement {
     repositories {

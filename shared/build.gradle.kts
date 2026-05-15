@@ -1,15 +1,16 @@
+@file:OptIn(ExperimentalWasmDsl::class, ExperimentalWasmDsl::class)
+
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
+import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 
 plugins {
     alias(libs.plugins.multiplatform)
     alias(libs.plugins.composeMultiplatform)
-    alias(libs.plugins.android.application)
+    alias(libs.plugins.android.kotlin.multiplatform.library)
     alias(libs.plugins.composeCompiler)
 }
 
 kotlin {
-    androidTarget()
-
     jvm()
 
     wasmJs {
@@ -55,7 +56,7 @@ kotlin {
 
         androidMain {
             dependencies {
-                implementation(libs.androidx.activityCompose)
+                implementation(libs.androidx.core.ktx)
                 implementation(compose.uiTooling)
                 implementation(compose.preview)
             }
@@ -67,29 +68,13 @@ kotlin {
             }
         }
     }
-}
 
-android {
-    namespace = "com.github.terrakok"
-    compileSdk = 36
-
-    defaultConfig {
+    android {
+        namespace = "com.github.terrakok"
+        compileSdk = 37
         minSdk = 24
-        targetSdk = 35
-
-        applicationId = "com.github.terrakok.androidApp"
-        versionCode = 1
-        versionName = "1.0.0"
+        androidResources { enable = true }
     }
-    sourceSets["main"].apply {
-        manifest.srcFile("src/androidMain/AndroidManifest.xml")
-        res.srcDirs("src/androidMain/res")
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
-    buildFeatures.compose = true
 }
 
 compose.desktop {
