@@ -1,7 +1,7 @@
 [versions]
 
-kotlin = "2.3.21"
-compose-multiplatform = "1.11.0"
+kotlin = "2.4.10"
+compose-multiplatform = "1.11.1"
 agp = "9.1.1"
 androidx-activityCompose = "1.13.0"
 androidx-core-ktx = "1.18.0"
@@ -20,6 +20,7 @@ kotlinx-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core",
 [plugins]
 
 multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+kotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 composeMultiplatform = { id = "org.jetbrains.compose", version.ref = "compose-multiplatform" }
 android-application = { id = "com.android.application", version.ref = "agp" }

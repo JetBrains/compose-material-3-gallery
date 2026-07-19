@@ -1,6 +1,5 @@
-@file:OptIn(ExperimentalWasmDsl::class, ExperimentalWasmDsl::class)
+@file:OptIn(ExperimentalWasmDsl::class)
 
-import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 
 plugins {
@@ -15,12 +14,10 @@ kotlin {
 
     wasmJs {
         browser()
-        binaries.executable()
     }
 
     js {
         browser()
-        binaries.executable()
     }
 
     listOf(
@@ -61,12 +58,6 @@ kotlin {
                 implementation(compose.preview)
             }
         }
-
-        jvmMain {
-            dependencies {
-                implementation(compose.desktop.currentOs)
-            }
-        }
     }
 
     android {
@@ -74,17 +65,5 @@ kotlin {
         compileSdk = 37
         minSdk = 24
         androidResources { enable = true }
-    }
-}
-
-compose.desktop {
-    application {
-        mainClass = "MainKt"
-
-        nativeDistributions {
-            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "com.github.terrakok.desktopApp"
-            packageVersion = "1.0.0"
-        }
     }
 }
