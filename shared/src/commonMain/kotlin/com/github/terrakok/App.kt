@@ -145,7 +145,7 @@ fun App() = AppTheme {
                     )
                 } else {
                     CenterAlignedTopAppBar(
-                        title = { Text(text = "Material 3") },
+                        title = { Text(text = "Material 3", modifier = Modifier.testTag("material3_title")) },
                         scrollBehavior = scrollBehavior,
                         actions = { actions() }
                     )
