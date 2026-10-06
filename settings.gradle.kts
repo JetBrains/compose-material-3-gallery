@@ -1,5 +1,9 @@
 rootProject.name = "Material-3-gallery"
-include(":composeApp")
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+include(":shared")
+include(":androidApp")
+include(":desktopApp")
+include(":webApp")
 
 pluginManagement {
     @Suppress("LocalVariableName")
