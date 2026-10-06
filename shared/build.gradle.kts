@@ -3,10 +3,10 @@
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 
 plugins {
-    alias(libs.plugins.multiplatform)
-    alias(libs.plugins.composeMultiplatform)
+    kotlin("multiplatform")
+    id("org.jetbrains.compose")
+    id("org.jetbrains.kotlin.plugin.compose")
     alias(libs.plugins.android.kotlin.multiplatform.library)
-    alias(libs.plugins.composeCompiler)
 }
 
 kotlin {
@@ -33,13 +33,12 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
-                implementation(compose.runtime)
-                implementation(compose.ui)
-//                implementation(compose.material3)
+                implementation(libs.runtime)
+                implementation(libs.ui)
                 implementation(libs.compose.material3)
-                implementation(compose.materialIconsExtended)
-                implementation(compose.components.resources)
-                implementation(compose.components.uiToolingPreview)
+                implementation(libs.material.icons)
+                implementation(libs.resources)
+                implementation(libs.ui.tooling.preview)
                 implementation(libs.materialKolor)
                 implementation(libs.kotlinx.coroutines)
             }

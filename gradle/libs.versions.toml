@@ -1,15 +1,14 @@
 [versions]
 
-kotlin = "2.4.20"
-compose-multiplatform = "1.12.0"
 agp = "9.1.1"
 androidx-activityCompose = "1.13.0"
 androidx-core-ktx = "1.19.0"
 materialKolor = "5.0.0"
-compose-material3 = "1.12.0-alpha03"
 kotlinx-coroutines = "1.11.0"
-runtime = "1.12.0"
-ui = "1.12.0"
+material-icons = "1.7.3"
+
+compose = "1.12.0" # For libraries such as ui, runtime, etc. Don't forget to update the Compose version in the gradle.properties
+compose-material3 = "1.12.0-alpha03"
 
 [libraries]
 
@@ -18,14 +17,13 @@ androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "androidx
 materialKolor = { module = "com.materialkolor:material-kolor", version.ref = "materialKolor" }
 compose-material3 = { group = "org.jetbrains.compose.material3", name = "material3", version.ref = "compose-material3" }
 kotlinx-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
-runtime = { module = "org.jetbrains.compose.runtime:runtime", version.ref = "runtime" }
-ui = { module = "org.jetbrains.compose.ui:ui", version.ref = "ui" }
+material-icons = { module = "org.jetbrains.compose.material:material-icons-extended", version.ref = "material-icons" }
+runtime = { module = "org.jetbrains.compose.runtime:runtime", version.ref = "compose" }
+ui = { module = "org.jetbrains.compose.ui:ui", version.ref = "compose" }
+resources = { module = "org.jetbrains.compose.components:components-resources", version.ref = "compose" }
+ui-tooling-preview = { module = "org.jetbrains.compose.components:components-ui-tooling-preview", version.ref = "compose" }
 
 [plugins]
 
-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
-kotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
-composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
-composeMultiplatform = { id = "org.jetbrains.compose", version.ref = "compose-multiplatform" }
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-kotlin-multiplatform-library = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }

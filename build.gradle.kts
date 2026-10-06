@@ -4,12 +4,12 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 import org.jetbrains.kotlin.gradle.targets.js.npm.tasks.KotlinNpmInstallTask
 
 plugins {
-    alias(libs.plugins.multiplatform).apply(false)
-    alias(libs.plugins.kotlinJvm).apply(false)
-    alias(libs.plugins.composeMultiplatform).apply(false)
+    kotlin("multiplatform") apply false
+    kotlin("jvm") apply false
+    id("org.jetbrains.compose") apply false
+    id("org.jetbrains.kotlin.plugin.compose") apply false
     alias(libs.plugins.android.application).apply(false)
     alias(libs.plugins.android.kotlin.multiplatform.library).apply(false)
-    alias(libs.plugins.composeCompiler).apply(false)
     id("com.github.ben-manes.versions").version("0.51.0")
 }
 
