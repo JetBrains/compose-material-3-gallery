@@ -1,21 +1,29 @@
 [versions]
 
-agp = "8.9.2"
-androidx-activityCompose = "1.10.1"
-material3 = "1.10.0-alpha05"
-materialKolor = "2.1.1"
-kotlinx-coroutines = "1.10.2"
-runtime = "1.10.3"
-ui = "1.10.3"
+agp = "9.1.1"
+androidx-activityCompose = "1.13.0"
+androidx-core-ktx = "1.19.0"
+materialKolor = "5.0.0"
+kotlinx-coroutines = "1.11.0"
+material-icons = "1.7.3"
+
+compose = "1.12.0" # For libraries such as ui, runtime, etc. Don't forget to update the Compose version in the gradle.properties
+compose-material3 = "1.12.0-alpha03"
 
 [libraries]
 
 androidx-activityCompose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
-material3 = { module = "org.jetbrains.compose.material3:material3", version.ref = "material3" }
+androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "androidx-core-ktx" }
 materialKolor = { module = "com.materialkolor:material-kolor", version.ref = "materialKolor" }
+compose-material3 = { group = "org.jetbrains.compose.material3", name = "material3", version.ref = "compose-material3" }
 kotlinx-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
-runtime = { module = "org.jetbrains.compose.runtime:runtime", version.ref = "runtime" }
-ui = { module = "org.jetbrains.compose.ui:ui", version.ref = "ui" }
+material-icons = { module = "org.jetbrains.compose.material:material-icons-extended", version.ref = "material-icons" }
+runtime = { module = "org.jetbrains.compose.runtime:runtime", version.ref = "compose" }
+ui = { module = "org.jetbrains.compose.ui:ui", version.ref = "compose" }
+resources = { module = "org.jetbrains.compose.components:components-resources", version.ref = "compose" }
+ui-tooling-preview = { module = "org.jetbrains.compose.components:components-ui-tooling-preview", version.ref = "compose" }
 
 [plugins]
+
 android-application = { id = "com.android.application", version.ref = "agp" }
+android-kotlin-multiplatform-library = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
