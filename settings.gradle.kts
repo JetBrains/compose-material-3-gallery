@@ -1,9 +1,5 @@
 rootProject.name = "Material-3-gallery"
-enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
-include(":shared")
-include(":androidApp")
-include(":desktopApp")
-include(":webApp")
+include(":composeApp")
 
 pluginManagement {
     @Suppress("LocalVariableName")
@@ -28,7 +24,7 @@ pluginManagement {
         println("kotlin.version (dot) = $kotlinVersionDot")
         val kotlinVersion = kotlinVersionDot
             ?: kotlin_version
-            ?: "2.4.20"
+            ?: "2.3.20"
         println("Final kotlin version = $kotlinVersion")
         val composeVersion = extra["composeMpp.version"] as String
         println("compose_version = $composeVersion")
