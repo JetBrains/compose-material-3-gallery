@@ -7,7 +7,7 @@ materialKolor = "5.0.0"
 kotlinx-coroutines = "1.11.0"
 material-icons = "1.7.3"
 
-compose = "1.12.0" # For libraries such as ui, runtime, etc. Don't forget to update the Compose version in the gradle.properties
+compose = "1.12.2" # For libraries such as ui, runtime, etc. Don't forget to update the Compose version in the gradle.properties
 compose-material3 = "1.12.0-alpha03"
 
 [libraries]
